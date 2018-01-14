@@ -1,9 +1,24 @@
 import java.util.*;
 import java.io.*;
 public class Final {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
+		
 		double[][] test1 = null;
 		double[][] test2 = null;
+		
+		Scanner reader = new Scanner(new File("final.in"));
+		int n = reader.nextInt();
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				test1[i][j] = reader.nextInt();
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				test2[i][j] = reader.nextInt();
+			}
+		}
+		reader.close();
 		
 		long time = System.currentTimeMillis();
 		double[][] result1 = mult(test1, test2);
