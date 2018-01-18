@@ -59,7 +59,7 @@ public class Final {
 	public static double[][] diagMult(double[][] mat1, double[][] mat2) {
 		int n = mat1.length;
 		double[][] result = new double[n][n];
-		\\TODO
+		//TODO
 		return result;
 	}
 
