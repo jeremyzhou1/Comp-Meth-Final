@@ -41,7 +41,7 @@ public class Final {
 	public static double[][] mult(double[][] mat1, double[][] mat2) {
 		int n = mat1.length;
 		double value = 0;
-		double[] a, double[] b;
+		double[] a; double[] b;
 		double[][] result = new double[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
