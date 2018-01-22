@@ -5,32 +5,42 @@ public class Final {
 
 		//Input
 		Scanner reader = new Scanner(new File("final.in"));
-		int n = reader.nextInt();
-		double[][] test1 = new double[n][n];
-		double[][] test2 = new double[n][n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				test1[i][j] = reader.nextInt();
+		ArrayList<double[][]> data = new ArrayList<double[][]>();
+		for (int k = 0; k < 3; k++){
+			int n = reader.nextInt();
+			double[][] test1 = new double[n][n];
+			double[][] test2 = new double[n][n];
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					test1[i][j] = reader.nextInt();
+				}
 			}
-		}
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				test2[i][j] = reader.nextInt();
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					test2[i][j] = reader.nextInt();
+				}
 			}
+			data.add(test1);
+			data.add(test2);
 		}
 		reader.close();
 
-		//Normal Matrix Multiplication
-		long time = System.nanoTime();
-		double[][] result1 = mult(test1, test2);
-		long time1 = System.nanoTime() - time;
-		printMatrix(result1);
-
-		//Matrix multiplication with diagonalization
-		time = System.nanoTime();
-		double[][] result2 = diagMult(test1, test2);
-		long time2 = System.nanoTime() - time;
-		printMatrix(result2);
+		long start; long end;
+		int[] matSizes = {5,10,15};
+		//Normal multiplication
+		for (int i = 0; i < 3; i++){
+			start = System.nanoTime();
+			double[][] result1 = mult(data.get(i*2), data.get(i*2+1));
+			end = System.nanoTime() - time;
+			System.out.println(matSizes[i] + " " + end-start)
+		}
+		//Diagonilization
+		for (int i = 0; i < 3; i++){
+			start = System.nanoTime();
+			double[][] result1 = diagmult(data.get(i*2), data.get(i*2+1));
+			end = System.nanoTime() - time;
+			System.out.println(matSizes[i] + " " + end-start)
+		}
 
 		//Output
 		System.out.println("Normal Multiplication Time: " + time1);
@@ -41,14 +51,14 @@ public class Final {
 	public static double[][] mult(double[][] mat1, double[][] mat2) {
 		int n = mat1.length;
 		double value = 0;
-		double[] a; double[] b;
+		double[] a = new double[n]; double[] b = new double[n];
 		double[][] result = new double[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				value = 0;
 				a = mat1[i];
 				for (int k = 0; k < n; k++)	b[k] = mat2[k][j];
-				for (int k = 0; i < n; k++)	value += a[k]*b[k];
+				for (int k = 0; k < n; k++)	value += a[k]*b[k];
 				result[i][j] = value;
 			}
 		}
@@ -67,7 +77,7 @@ public class Final {
 	public static void printMatrix(double[][] mat) {
 		for (int i = 0; i < mat.length; i++) {
 			for (int j = 0; j < mat[i].length; j++) {
-				System.out.print(mat[i][j]);
+				System.out.print(mat[i][j] + " ");
 			}
 			System.out.println();
 		}
