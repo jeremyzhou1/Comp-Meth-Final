@@ -1,79 +1,68 @@
+/*
+ * Computational Methods Final Project
+ * Kevin A. Zhou
+ * Jeremy Zhou
+ * January 2018
+ */
 import java.util.*;
 import java.io.*;
 public class Final {
+	
 	public static void main(String[] args) throws IOException{
 
 		//Input
 		Scanner reader = new Scanner(new File("final.in"));
 		ArrayList<double[][]> data = new ArrayList<double[][]>();
-		for (int k = 0; k < 3; k++){
+		ArrayList<Integer> vectorSizes = new ArrayList<Integer>();
+		ArrayList<Integer> powers = new ArrayList<Integer>();
+		for (int k = 0; k < reader.nextInt(); k++) {
+			powers.add(reader.nextInt());
+		}
+		for (int k = 0; k < reader.nextInt(); k++) {
 			int n = reader.nextInt();
-			double[][] test1 = new double[n][n];
-			double[][] test2 = new double[n][n];
+			vectorSizes.add(n);
+			double[][] inputMat = new double[n][n];
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					test1[i][j] = reader.nextInt();
+					inputMat[i][j] = reader.nextInt();
 				}
 			}
-			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < n; j++) {
-					test2[i][j] = reader.nextInt();
-				}
-			}
-			data.add(test1);
-			data.add(test2);
+			data.add(inputMat);
 		}
 		reader.close();
 
+		//Calculations
 		long start; long end;
-		int[] matSizes = {5,10,15};
+		ArrayList<double[][]> answers1 = new ArrayList<double[][]>();
+		ArrayList<double[][]> answers2 = new ArrayList<double[][]>();
+		
 		//Normal multiplication
-		for (int i = 0; i < 3; i++){
-			start = System.nanoTime();
-			double[][] result1 = mult(data.get(i*2), data.get(i*2+1));
-			end = System.nanoTime() - time;
-			System.out.println(matSizes[i] + " " + end-start)
-		}
-		//Diagonilization
-		for (int i = 0; i < 3; i++){
-			start = System.nanoTime();
-			double[][] result1 = diagmult(data.get(i*2), data.get(i*2+1));
-			end = System.nanoTime() - time;
-			System.out.println(matSizes[i] + " " + end-start)
-		}
-
-		//Output
-		System.out.println("Normal Multiplication Time: " + time1);
-		System.out.println("Diagonilization Multiplication Time:" + time2);
-	}
-
-	//Normal Matrix Multiplication
-	public static double[][] mult(double[][] mat1, double[][] mat2) {
-		int n = mat1.length;
-		double value = 0;
-		double[] a = new double[n]; double[] b = new double[n];
-		double[][] result = new double[n][n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				value = 0;
-				a = mat1[i];
-				for (int k = 0; k < n; k++)	b[k] = mat2[k][j];
-				for (int k = 0; k < n; k++)	value += a[k]*b[k];
-				result[i][j] = value;
+		for (int i = 0; i < vectorSizes.size(); i++){
+			for (int j = 0; j < powers.size(); j++) {
+				start = System.nanoTime();
+				answers1.add(power(data.get(i), powers.get(j)));
+				end = System.nanoTime() - start;
+				System.out.println("size " + vectorSizes.get(i) + ", power " + powers.get(j) + ": " + (end-start));
 			}
 		}
-		return result;
+		
+		//Diagonilization
+		for (int i = 0; i < vectorSizes.size(); i++){
+			for (int j = 0; j < powers.size(); j++) {
+				start = System.nanoTime();
+				answers1.add(diagPower(data.get(i), powers.get(j)));
+				end = System.nanoTime() - start;
+				System.out.println("size " + vectorSizes.get(i) + ", power " + powers.get(j) + ": " + (end-start));
+			}
+		}
+		
+		//Check if diagmult() works
+		for (int i = 0; i < 3; i++) {
+			if (answers1.equals(answers2))	System.out.println("Works");
+		}
 	}
-
-	//Matrix multiplication with diagonalization
-	public static double[][] diagMult(double[][] mat1, double[][] mat2) {
-		int n = mat1.length;
-		double[][] result = new double[n][n];
-		//TODO
-		return result;
-	}
-
-	//Prints a 2d matrix
+	
+	//Prints a 2d matrix (for testing purposes)
 	public static void printMatrix(double[][] mat) {
 		for (int i = 0; i < mat.length; i++) {
 			for (int j = 0; j < mat[i].length; j++) {
@@ -81,5 +70,36 @@ public class Final {
 			}
 			System.out.println();
 		}
+	}
+
+	//Normal Matrix Multiplication
+	public static double[][] power(double[][] mat, int power) {
+		int n = mat.length;
+		double[][] result = new double[n][n];
+		
+		double value = 0;
+		double[] a = new double[n]; double[] b = new double[n];
+		for (int p = 0; p < power; p++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					a = mat[i];
+					for (int k = 0; k < n; k++)	b[k] = mat[k][j];
+					
+					value = 0;
+					for (int k = 0; k < n; k++)	value += a[k]*b[k];
+					result[i][j] = value;
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	//Matrix multiplication with diagonalization
+	public static double[][] diagPower(double[][] mat, int power) {
+		int n = mat.length;
+		double[][] result = new double[n][n];
+		//TODO
+		return result;
 	}
 }
