@@ -70,7 +70,7 @@ public class Final {
 			if (answers1.equals(answers2))	System.out.println("Works");
 	}
 
-	//Normal Matrix Multiplication
+	//Find the kth power of a matrix
 	public static double[][] power(double[][] mat, int power) {
 		int n = mat.length;
 		double[][] result = mat;
@@ -96,7 +96,7 @@ public class Final {
 	}
 	
 	//Multiply two matrices together
-	public static double[][] mult2(double[][] mat1, double[][] mat2) {
+	public static double[][] mult(double[][] mat1, double[][] mat2) {
 		int n = mat1.length;
   		double value = 0;
  		double[] a = new double[n]; double[] b = new double[n];
@@ -148,8 +148,8 @@ public class Final {
 		}
 		pmatrixInverse = invert(pmatrix);
 		
-		result = mult2(pmatrix, diagonal);
-		result = mult2(result, pmatrixInverse);
+		result = mult(pmatrix, diagonal);
+		result = mult(result, pmatrixInverse);
 		
 		return result;
 	}
