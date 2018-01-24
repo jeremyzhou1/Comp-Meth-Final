@@ -12,15 +12,17 @@ public class Final {
 
 		//Input. We assume that the input matrix is triangular and diagonalizable.
 		Scanner reader = new Scanner(new File("final.in"));
+		
 		ArrayList<double[][]> data = new ArrayList<double[][]>();
 		ArrayList<Integer> vectorSizes = new ArrayList<Integer>();
 		ArrayList<Integer> powers = new ArrayList<Integer>();
-		int amountOfPowers = reader.nextInt();
-		for (int k = 0; k < amountOfPowers; k++) {
+		
+		int numPowers = reader.nextInt();
+		for (int k = 0; k < numPowers; k++) {
 			powers.add(reader.nextInt());
 		}
-		int amountOfMatrices = reader.nextInt();
-		for (int k = 0; k < amountOfMatrices; k++) {
+		int numMatrices = reader.nextInt();
+		for (int k = 0; k < numMatrices; k++) {
 			int n = reader.nextInt();
 			vectorSizes.add(n);
 			double[][] inputMat = new double[n][n];
@@ -38,17 +40,21 @@ public class Final {
 		ArrayList<double[][]> answers1 = new ArrayList<double[][]>();
 		ArrayList<double[][]> answers2 = new ArrayList<double[][]>();
 		
-		//Normal multiplication
+		//Normal
+		System.out.println("Brute Force Powers");
 		for (int i = 0; i < vectorSizes.size(); i++){
 			for (int j = 0; j < powers.size(); j++) {
 				start = System.nanoTime();
 				answers1.add(power(data.get(i), powers.get(j)));
-				end = System.nanoTime() - start;
+				end = System.nanoTime();
 				System.out.println("size " + vectorSizes.get(i) + ", power " + powers.get(j) + ": " + (end-start));
 			}
+			System.out.println();
 		}
+		System.out.println();
 		
 		//Diagonilization
+		System.out.println("Powers with Diagonlization");
 		for (int i = 0; i < vectorSizes.size(); i++){
 			for (int j = 0; j < powers.size(); j++) {
 				start = System.nanoTime();
@@ -56,7 +62,9 @@ public class Final {
 				end = System.nanoTime() - start;
 				System.out.println("size " + vectorSizes.get(i) + ", power " + powers.get(j) + ": " + (end-start));
 			}
+			System.out.println();
 		}
+		System.out.println();
 		
 		//Check if diagmult() works
 		for (int i = 0; i < 3; i++) {
