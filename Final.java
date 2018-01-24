@@ -10,15 +10,17 @@ public class Final {
 	
 	public static void main(String[] args) throws IOException{
 
-		//Input
+		//Input. We assume that the input matrix is triangular and diagonalizable.
 		Scanner reader = new Scanner(new File("final.in"));
 		ArrayList<double[][]> data = new ArrayList<double[][]>();
 		ArrayList<Integer> vectorSizes = new ArrayList<Integer>();
 		ArrayList<Integer> powers = new ArrayList<Integer>();
-		for (int k = 0; k < reader.nextInt(); k++) {
+		int amountOfPowers = reader.nextInt();
+		for (int k = 0; k < amountOfPowers; k++) {
 			powers.add(reader.nextInt());
 		}
-		for (int k = 0; k < reader.nextInt(); k++) {
+		int amountOfMatrices = reader.nextInt();
+		for (int k = 0; k < amountOfMatrices; k++) {
 			int n = reader.nextInt();
 			vectorSizes.add(n);
 			double[][] inputMat = new double[n][n];
