@@ -8,5 +8,5 @@ File input (test matrices) found in
 >final.in
 
 ### Things to do
-- [ ] Finish multiplication with diagonlization
+- [ ] Finish `diagPower`
 - [ ] Write paper
