@@ -1,8 +1,5 @@
-package pham;
-
 import java.util.*;
 import java.io.*;
-
 
 public class Final {
 	
