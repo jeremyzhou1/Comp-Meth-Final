@@ -32,7 +32,7 @@ public class Final {
 		long start; long end; long time;
 		ArrayList<double[][]> answers1 = new ArrayList<double[][]>();
 		ArrayList<double[][]> answers2 = new ArrayList<double[][]>();
-		int reps = 1000;
+		int reps = 100;
 		
 		//Normal
 		System.out.println("Brute Force");
@@ -50,7 +50,7 @@ public class Final {
 		System.out.println();
 		
 		//Diagonalization
-		System.out.println("Diagonlization");
+		System.out.println("Diagonalization");
 		for (int i = 0; i < matrixSizes.size(); i++){
 			for (int j = 0; j < powers.size(); j++) {
 				start = System.nanoTime();
@@ -61,10 +61,6 @@ public class Final {
 			}
 			System.out.println();
 		}
-		
-		//Check if diagPower() works
-		for (int i = 0; i < 3; i++)
-			if (answers1.equals(answers2))	System.out.println("Works");
 	}
 
 	//Find the kth power of a matrix
